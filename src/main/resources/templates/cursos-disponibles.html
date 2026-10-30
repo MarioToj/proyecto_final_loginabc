@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Cursos disponibles')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <h1>Cursos disponibles</h1>
+    <p class="subtitulo">Estos son los cursos que ofrece el portal.</p>
+
+    <div class="tarjetas">
+        <article class="tarjeta" th:each="curso : ${cursos}">
+            <h2 th:text="${curso.nombre}"></h2>
+            <p th:text="${curso.descripcion}"></p>
+        </article>
+    </div>
+
+    <p th:if="${#lists.isEmpty(cursos)}">Todavía no hay cursos registrados.</p>
+
+    <p class="nota" th:if="${session.usuario == null}">
+        Inicia sesión para ver las actividades de cada curso.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

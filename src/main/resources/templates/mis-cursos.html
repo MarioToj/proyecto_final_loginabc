@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mis cursos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <h1 th:text="${usuario.esProfesor()} ? 'Cursos que imparto' : 'Mis cursos'"></h1>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <div class="tarjetas">
+        <article class="tarjeta" th:each="curso : ${cursos}">
+            <h2 th:text="${curso.nombre}"></h2>
+            <p th:text="${curso.descripcion}"></p>
+            <p class="meta">Profesor: <span th:text="${curso.profesor.nombre}"></span></p>
+            <p class="meta">Actividades: <span th:text="${conteo[curso.id]}"></span></p>
+            <a class="boton" th:href="@{/cursos/{id}(id=${curso.id})}"
+               th:text="${usuario.esProfesor()} ? 'Gestionar actividades' : 'Ver curso'"></a>
+        </article>
+    </div>
+
+    <p th:if="${#lists.isEmpty(cursos)}">Todavía no tienes cursos asignados.</p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

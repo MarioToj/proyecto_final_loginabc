@@ -64,4 +64,7 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
+    public boolean esProfesor() { return rol == Rol.PROFESOR; }
+    public boolean esEstudiante() { return rol == Rol.ESTUDIANTE; }
 }

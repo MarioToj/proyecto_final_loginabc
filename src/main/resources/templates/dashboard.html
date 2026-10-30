@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
+<head th:replace="~{fragments/layout :: head('Dashboard')}"></head>
 <body>
-<h1>Dashboard</h1>
-<p>Bienvenido, <strong th:text="${usuario.nombre}"></strong></p>
-<p>Rol: <span th:text="${usuario.rol}"></span></p>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Cerrar sesión</button>
-</form>
+<main class="contenedor">
+    <section class="hero">
+        <h1>Hola, <span th:text="${usuario.nombre}"></span></h1>
+        <p class="subtitulo" th:if="${usuario.esEstudiante()}">Panel de estudiante</p>
+        <p class="subtitulo" th:if="${usuario.esProfesor()}">Panel de profesor</p>
+    </section>
+
+    <div class="tarjetas">
+        <article class="tarjeta">
+            <h2 th:text="${usuario.esProfesor()} ? 'Cursos que impartes' : 'Tus cursos'"></h2>
+            <p class="cifra" th:text="${totalCursos}"></p>
+        </article>
+        <article class="tarjeta">
+            <h2 th:text="${usuario.esProfesor()} ? 'Actividades publicadas' : 'Actividades en tus cursos'"></h2>
+            <p class="cifra" th:text="${totalActividades}"></p>
+        </article>
+    </div>
+
+    <p>
+        <a class="boton" th:href="@{/mis-cursos}"
+           th:text="${usuario.esProfesor()} ? 'Gestionar mis cursos' : 'Ver mis cursos'"></a>
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
 </body>
 </html>

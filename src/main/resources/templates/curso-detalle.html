@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Detalle del curso')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <p><a th:href="@{/mis-cursos}">&larr; Volver a mis cursos</a></p>
+
+    <p class="exito" th:if="${mensaje}" th:text="${mensaje}"></p>
+
+    <section class="tarjeta">
+        <h1 th:text="${curso.nombre}"></h1>
+        <p th:text="${curso.descripcion}"></p>
+        <p class="meta">Profesor: <strong th:text="${curso.profesor.nombre}"></strong></p>
+        <p class="insignia" th:if="${puedeGestionar}">Eres el profesor de este curso</p>
+    </section>
+
+    <h2>Actividades</h2>
+
+    <p th:if="${puedeGestionar}">
+        <a class="boton" th:href="@{/profesor/cursos/{id}/actividades/nueva(id=${curso.id})}">Nueva actividad</a>
+    </p>
+
+    <table class="tabla" th:if="${!#lists.isEmpty(actividades)}">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Fecha de entrega</th>
+            <th th:if="${puedeGestionar}">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actividad : ${actividades}">
+            <td th:text="${actividad.titulo}"></td>
+            <td th:text="${actividad.descripcion}"></td>
+            <td th:text="${actividad.fechaEntrega != null ? #temporals.format(actividad.fechaEntrega, 'dd/MM/yyyy') : 'Sin fecha'}"></td>
+            <td class="acciones" th:if="${puedeGestionar}">
+                <a th:href="@{/profesor/actividades/{id}/editar(id=${actividad.id})}">Editar</a>
+                <form class="form-linea"
+                      th:action="@{/profesor/actividades/{id}/eliminar(id=${actividad.id})}"
+                      method="post"
+                      onsubmit="return confirm('¿Eliminar esta actividad?');">
+                    <button class="boton-peligro" type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(actividades)}">Este curso todavía no tiene actividades.</p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

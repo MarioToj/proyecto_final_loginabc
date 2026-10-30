@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="|${titulo} - Portal Académico|">Portal Académico</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<nav th:fragment="menu" class="menu">
+    <a class="marca" th:href="@{/}">Portal Académico</a>
+
+    <div class="enlaces">
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/cursos-disponibles}">Cursos</a>
+
+        <!-- Visitante -->
+        <th:block th:if="${session.usuario == null}">
+            <a th:href="@{/login}">Iniciar sesión</a>
+            <a th:href="@{/register}">Registrarse</a>
+        </th:block>
+
+        <!-- Con sesión iniciada -->
+        <th:block th:if="${session.usuario != null}">
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/mis-cursos}">Mis cursos</a>
+            <!--/* Se agregan en los pasos siguientes:
+            <a th:href="@{/perfil}">Perfil</a>
+            */-->
+            <span class="usuario" th:text="${session.usuario.nombre}"></span>
+            <form class="form-salir" th:action="@{/logout}" method="post">
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </th:block>
+    </div>
+</nav>
+
+<footer th:fragment="pie">
+    Portal Académico · Proyecto de Programación II
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Registro')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <form class="formulario" th:action="@{/register}" th:object="${registroForm}" method="post">
+        <h1>Crear cuenta</h1>
+        <p class="nota">El registro es solo para estudiantes.</p>
+
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" th:field="*{nombre}">
+            <span class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        </div>
+        <div>
+            <label for="correo">Correo</label>
+            <input type="text" id="correo" th:field="*{correo}">
+            <span class="error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+        </div>
+        <div>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" th:field="*{password}">
+            <span class="nota">Mínimo 6 caracteres.</span>
+            <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+
+        <button class="boton" type="submit">Registrarme</button>
+        <p class="nota">¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

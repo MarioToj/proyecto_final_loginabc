@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ActividadRepository extends JpaRepository<Actividad, Long> {
     List<Actividad> findByCursoId(Long cursoId);
+    long countByCursoId(Long cursoId);
+    List<Actividad> findByCursoIdOrderByFechaEntregaAsc(Long cursoId);
 }

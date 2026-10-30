@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Actividad')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <form class="formulario ancho" th:action="@{${urlAccion}}" th:object="${actividadForm}" method="post">
+        <h1 th:text="${tituloPagina}"></h1>
+        <p class="meta">Curso: <strong th:text="${curso.nombre}"></strong></p>
+
+        <div>
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" th:field="*{titulo}">
+            <span class="error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        </div>
+        <div>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" rows="4" th:field="*{descripcion}"></textarea>
+            <span class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+        </div>
+        <div>
+            <label for="fechaEntrega">Fecha de entrega (opcional)</label>
+            <input type="date" id="fechaEntrega" th:field="*{fechaEntrega}">
+            <span class="error" th:if="${#fields.hasErrors('fechaEntrega')}" th:errors="*{fechaEntrega}"></span>
+        </div>
+
+        <button class="boton" type="submit">Guardar</button>
+        <a class="boton boton-secundario" th:href="@{/cursos/{id}(id=${curso.id})}">Cancelar</a>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inicio')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <section class="hero">
+        <h1>Bienvenido al Portal Académico</h1>
+        <p class="subtitulo">
+            Consulta los cursos disponibles, revisa las actividades de cada materia
+            y administra tu cuenta desde un solo lugar.
+        </p>
+
+        <a class="boton" th:href="@{/cursos-disponibles}">Ver cursos</a>
+
+        <th:block th:if="${session.usuario == null}">
+            <a class="boton boton-secundario" th:href="@{/login}">Iniciar sesión</a>
+        </th:block>
+        <th:block th:if="${session.usuario != null}">
+            <a class="boton boton-secundario" th:href="@{/dashboard}">Ir a mi dashboard</a>
+        </th:block>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>
