@@ -17,19 +17,14 @@
         <a th:href="@{/}">Inicio</a>
         <a th:href="@{/cursos-disponibles}">Cursos</a>
 
-        <!-- Visitante -->
         <th:block th:if="${session.usuario == null}">
             <a th:href="@{/login}">Iniciar sesión</a>
             <a th:href="@{/register}">Registrarse</a>
         </th:block>
 
-        <!-- Con sesión iniciada -->
         <th:block th:if="${session.usuario != null}">
-            <a th:href="@{/dashboard}">Dashboard</a>
             <a th:href="@{/mis-cursos}">Mis cursos</a>
-            <!--/* Se agregan en los pasos siguientes:
             <a th:href="@{/perfil}">Perfil</a>
-            */-->
             <span class="usuario" th:text="${session.usuario.nombre}"></span>
             <form class="form-salir" th:action="@{/logout}" method="post">
                 <button type="submit">Cerrar sesión</button>

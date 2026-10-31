@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mi perfil')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <p class="exito" th:if="${mensaje}" th:text="${mensaje}"></p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <section class="tarjeta">
+        <h1>Mi perfil</h1>
+
+        <p class="meta">Nombre</p>
+        <p><strong th:text="${usuario.nombre}"></strong></p>
+
+        <p class="meta">Correo</p>
+        <p><strong th:text="${usuario.correo}"></strong></p>
+
+        <p class="meta">Rol</p>
+        <p><strong th:text="${usuario.rol}"></strong></p>
+
+        <a class="boton" th:href="@{/perfil/editar}">Editar mis datos</a>
+    </section>
+
+    <!-- Solo estudiantes (RN-12) -->
+    <section class="tarjeta zona-peligro" th:if="${usuario.esEstudiante()}">
+        <h2>Eliminar cuenta</h2>
+        <p>Esta acción borra tu cuenta de forma permanente.</p>
+        <form th:action="@{/perfil/eliminar}" method="post"
+              onsubmit="return confirm('¿Seguro que quieres eliminar tu cuenta? No se puede deshacer.');">
+            <button class="boton-peligro" type="submit">Eliminar mi cuenta</button>
+        </form>
+    </section>
+
+    <p class="nota" th:if="${usuario.esProfesor()}">
+        Las cuentas de profesor no se pueden eliminar desde el portal.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

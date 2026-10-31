@@ -249,3 +249,5 @@ footer { text-align: center; color: #777; font-size: .85rem; padding: 2rem 1rem;
     cursor: pointer;
 }
 .boton-peligro:hover { background: #8a0019; }
+
+.zona-peligro { margin-top: 1rem; border-color: #e6b3bb; }

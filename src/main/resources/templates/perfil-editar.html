@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Editar perfil')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: menu}"></nav>
+
+<main class="contenedor">
+    <form class="formulario" th:action="@{/perfil/editar}" th:object="${perfilForm}" method="post">
+        <h1>Editar mis datos</h1>
+        <p class="nota">Correo: <strong th:text="${session.usuario.correo}"></strong> (no se puede cambiar)</p>
+
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" th:field="*{nombre}">
+            <span class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        </div>
+        <div>
+            <label for="password">Nueva contraseña (opcional)</label>
+            <input type="password" id="password" th:field="*{password}">
+            <span class="nota">Déjala vacía para conservar la actual.</span>
+            <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+
+        <button class="boton" type="submit">Guardar cambios</button>
+        <a class="boton boton-secundario" th:href="@{/perfil}">Cancelar</a>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>
