@@ -10,7 +10,6 @@ public class PerfilForm {
     @Size(max = 100, message = "El nombre no puede pasar de 100 caracteres")
     private String nombre;
 
-    // Vacía (se conserva la actual) o entre 6 y 50 caracteres
     @Pattern(regexp = "^$|.{6,50}", message = "La contraseña debe tener entre 6 y 50 caracteres")
     private String password;
 

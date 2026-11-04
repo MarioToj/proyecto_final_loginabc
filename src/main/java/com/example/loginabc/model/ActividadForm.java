@@ -18,7 +18,6 @@ public class ActividadForm {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaEntrega;
 
-    /** Crea un formulario con los datos de una actividad existente (para editar). */
     public static ActividadForm desde(Actividad actividad) {
         ActividadForm form = new ActividadForm();
         form.setTitulo(actividad.getTitulo());
